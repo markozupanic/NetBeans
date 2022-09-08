@@ -8,7 +8,7 @@
         <!-- https://www.tutorialspoint.com/hibernate/hibernate_annotations.htm -->
 
         <property name="connection.url">jdbc:mariadb://localhost:3306/edunovahib?createDatabaseIfNotExist=true</property>
-        <property name="connection.username">x</property>
+        <property name="connection.username">root</property>
         <property name="connection.password"></property>
         <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MariaDBDialect</property>
@@ -37,7 +37,7 @@
 
 
         <!-- moraju se slijedno navesti klase koje su mapirane -->
-        <mapping class="edunova.model.Mjesto" />
+        <mapping class="edunova.model.Smjer" />
         <mapping class="edunova.model.Polaznik" />
         <mapping class="edunova.model.Predavac" />
         <mapping class="edunova.model.Grupa" />

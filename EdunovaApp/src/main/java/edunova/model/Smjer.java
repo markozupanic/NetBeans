@@ -1,6 +1,9 @@
 package edunova.model;
 
+import jakarta.persistence.Entity;
 import java.math.BigDecimal;
+
+@Entity
 
 public class Smjer extends Entitet {
 	
