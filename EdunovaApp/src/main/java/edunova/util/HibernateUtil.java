@@ -11,7 +11,7 @@ import org.hibernate.cfg.Configuration;
      *
      * @author tjakopec
      */
-// https://www.geeksforgeeks.org/singleton-class-java/
+//https://www.geeksforgeeks.org/singleton-class-java/
     public class HibernateUtil {
 
         private static Session session = null;

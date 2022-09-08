@@ -5,11 +5,10 @@
 
 package edunova;
 
-import edunova.model.Smjer;
-import edunova.util.HibernateUtil;
-import java.math.BigDecimal;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
+
+
+import edunova.util.PocetniInsert;
+
 
 /**
  *
@@ -19,16 +18,7 @@ public class Start {
 
     public Start() {
         
-        Session session =HibernateUtil.getSession();
-        
-        Smjer s =new Smjer();
-        s.setNaziv("Java programiranje");
-        s.setCijena(new BigDecimal(1000));
-        s.setCertificiran(Boolean.TRUE);
-        
-        session.beginTransaction();
-        session.persist(s);
-        session.getTransaction().commit();
+        PocetniInsert.izvedi();
     }
 
     
