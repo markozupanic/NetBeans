@@ -18,7 +18,7 @@ public class Start {
 
     public Start() {
         
-        PocetniInsert.izvedi();
+        new PocetniInsert();
     }
 
     
