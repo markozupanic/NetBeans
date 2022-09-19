@@ -21,6 +21,7 @@ public class ObradaRezervacija extends Obrada<Rezervacija>{
 
     @Override
     public void kontrolaCreate() throws EdunovaException {
+        
     }
 
     @Override
