@@ -8,6 +8,7 @@ package edunova;
 
 
 import edunova.util.PocetniInsert;
+import edunova.view.SplashScreen;
 
 
 /**
@@ -19,6 +20,7 @@ public class Start {
     public Start() {
         
         new PocetniInsert();
+        new SplashScreen().setVisible(true);
     }
 
     

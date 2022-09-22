@@ -1,5 +1,5 @@
-edunova\model\Entitet.class
 edunova\model\Clan.class
+edunova\model\Entitet.class
 edunova\util\HibernateUtil.class
 edunova\model\Smjer.class
 edunova\Start.class

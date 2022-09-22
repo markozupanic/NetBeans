@@ -22,9 +22,7 @@ public class ObradaSmjer extends Obrada<Smjer>{
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
-        if(entitet==null){
-            throw new EdunovaException("Smjer Nije konstriran");
-        }
+        
         kontrolaNaziv();
         kontrolaCijena();
     }
@@ -80,6 +78,11 @@ public class ObradaSmjer extends Obrada<Smjer>{
          if (entitet.getNaziv().length() > brojZnakova) {
             throw new EdunovaException("Naziv smjera ne smije imati više od " + brojZnakova + " znakova");
         }
+    }
+
+    @Override
+    protected String getNazivEntiteta() {
+        return "Smjer";
     }
     }
     
