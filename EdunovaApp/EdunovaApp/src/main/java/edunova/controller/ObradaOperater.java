@@ -6,6 +6,7 @@ package edunova.controller;
 
 import edunova.model.Operater;
 import java.util.List;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -13,14 +14,43 @@ import java.util.List;
  */
 public class ObradaOperater extends ObradaOsoba<Operater>{
 
+    Operater o;
+    public Operater autoriziraj(String email,char[] lozinka){
+       
+        try {
+            
+        
+        o=session.createQuery("from Operater where email=:email",
+                Operater.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        
+         } catch (Exception e) {
+             return null;
+        }
+        
+        if(BCrypt.checkpw(new String(lozinka) , o.getLozinka())){
+        
+        Operater vrati=new Operater();
+        vrati.setSifra(o.getSifra());
+        vrati.setIme(o.getIme());
+        vrati.setPrezime(o.getPrezime());
+        vrati.setEmail(o.getEmail());
+        return vrati;
+    }
+        return null;
+        
+    }
+    
+    
     @Override
     public List<Operater> read() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return session.createQuery("from Operater",Operater.class).list();
     }
 
     @Override
     protected String getNazivEntiteta() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "Operater";
     }
     
 }

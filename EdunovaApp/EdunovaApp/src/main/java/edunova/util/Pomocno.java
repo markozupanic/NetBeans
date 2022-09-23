@@ -4,6 +4,8 @@
  */
 package edunova.util;
 
+import edunova.model.Operater;
+
 /**
  *
  * @author X
@@ -11,6 +13,7 @@ package edunova.util;
 public class Pomocno {
     
     public static final String NAZIV_APLIKACIJE="EDUNOVA APP";
+    public static Operater operater;
     
       public static boolean kontrolaOib(String oib){
         if(oib==null){

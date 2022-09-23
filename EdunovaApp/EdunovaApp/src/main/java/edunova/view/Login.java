@@ -4,8 +4,11 @@
  */
 package edunova.view;
 
+import edunova.controller.ObradaOperater;
+import edunova.model.Operater;
 import edunova.util.Pomocno;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,6 +61,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Lozinka:");
 
+        txtLozinka.setText("m");
         txtLozinka.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLozinkaKeyPressed(evt);
@@ -65,6 +69,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnPrijava.setText("Prijava");
+        btnPrijava.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrijavaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,6 +149,10 @@ public class Login extends javax.swing.JFrame {
             autorizacija();
     }//GEN-LAST:event_txtLozinkaKeyPressed
 
+    private void btnPrijavaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrijavaActionPerformed
+        autorizacija();
+    }//GEN-LAST:event_btnPrijavaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -155,7 +168,17 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void autorizacija() {
+        ObradaOperater oo=new ObradaOperater();
+        Operater o=oo.autoriziraj(txtEmail.getText(), txtLozinka.getPassword());
         
+        if(o==null){
+            JOptionPane.showMessageDialog(rootPane, "Autorizacija nije uspjela");
+            return;
+        }
+        
+        Pomocno.operater=o;
+        new Izbornik().setVisible(true);
+        dispose();
         
         
     }

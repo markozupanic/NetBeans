@@ -19,7 +19,7 @@ public class Start {
 
     public Start() {
         
-        new PocetniInsert();
+        //new PocetniInsert();
         new SplashScreen().setVisible(true);
     }
 
