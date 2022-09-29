@@ -10,6 +10,8 @@ import static java.util.Date.from;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
+import zavrsnirad.model.Operater;
 import zavrsnirad.model.Proizvod;
 import zavrsnirad.model.Rezervacija;
 import zavrsnirad.model.Zaposlenik;
@@ -39,6 +41,7 @@ public class PocetniInsert {
         kreirajProizvode(50);
         kreirajReazervacije(15);
         kreirajZaposlenike(5);
+        kreirajOperatera();
         sess.getTransaction().commit();
 
     }
@@ -80,6 +83,17 @@ public class PocetniInsert {
         z.setIme(faker.name().firstName());
         sess.persist(z);
         return z;
+    }
+
+    private void kreirajOperatera() {
+        
+         Operater o = new Operater();
+        o.setIme("Marko");
+        o.setPrezime("Županić");
+        o.setEmail(o.getIme().toLowerCase() + o.getPrezime().toLowerCase() + "@gmail.com");
+        o.setLozinka(BCrypt.hashpw("m", BCrypt.gensalt()));
+        sess.persist(o);
+        
     }
 
 }

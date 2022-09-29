@@ -7,7 +7,7 @@
 
         <!-- https://www.tutorialspoint.com/hibernate/hibernate_annotations.htm -->
 
-        <property name="connection.url">jdbc:mariadb://localhost:3306/edunovahib?createDatabaseIfNotExist=true</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/edunovazav?createDatabaseIfNotExist=true</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
         <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
@@ -41,6 +41,7 @@
         <mapping class="zavrsnirad.model.ProizvodRezervacije" />
         <mapping class="zavrsnirad.model.Rezervacija" />
         <mapping class="zavrsnirad.model.Zaposlenik" />
+        <mapping class="zavrsnirad.model.Operater" />
         
        
     </session-factory>

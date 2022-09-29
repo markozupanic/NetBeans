@@ -6,6 +6,7 @@
 package zavrsnirad;
 
 import zavrsnirad.util.PocetniInsert;
+import zavrsnirad.view.SplashScreen;
 
 /**
  *
@@ -20,8 +21,8 @@ import zavrsnirad.util.PocetniInsert;
 public class Start {
 
     public Start() {
-       
-       new PocetniInsert();
+       new SplashScreen().setVisible(true);
+       //new PocetniInsert();
       
     }
     
