@@ -49,6 +49,12 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setText("Email");
 
+        txtEmail.setText("markožupanić@gmail.com");
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
         txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtEmailKeyPressed(evt);
@@ -64,6 +70,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txtLozinka.setText("m");
+        txtLozinka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLozinkaActionPerformed(evt);
+            }
+        });
         txtLozinka.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtLozinkaKeyPressed(evt);
@@ -153,6 +165,14 @@ public class Login extends javax.swing.JFrame {
            autorizacija();
        }
     }//GEN-LAST:event_txtLozinkaKeyPressed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLozinkaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLozinkaActionPerformed
 
    
 

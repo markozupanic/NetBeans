@@ -53,7 +53,13 @@ public class Proizvod extends Entitet {
 		
 		
 	}
+
+    @Override
+    public String toString() {
+        return naziv;
+    }
 	
 	
 
+        
 }
