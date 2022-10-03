@@ -55,6 +55,11 @@ public class Zaposlenik extends Entitet {
 	public void setZnanje(String znanje) {
 		this.znanje = znanje;
 	}
+
+    @Override
+    public String toString() {
+        return ime;
+    }
 	
 	
 	

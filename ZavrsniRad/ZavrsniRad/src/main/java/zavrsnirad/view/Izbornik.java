@@ -64,7 +64,12 @@ public class Izbornik extends javax.swing.JFrame {
         jMenuItem2.setText("Rezervacije");
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Rezervacije");
+        jMenuItem3.setText("Zaposlenik");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setText("Izlaz iz aplikacije");
@@ -106,6 +111,10 @@ public class Izbornik extends javax.swing.JFrame {
         new ProzorProizvodi().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new ProzorZaposlenik().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

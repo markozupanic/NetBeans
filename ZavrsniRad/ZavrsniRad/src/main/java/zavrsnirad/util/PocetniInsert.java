@@ -81,6 +81,7 @@ public class PocetniInsert {
     private Zaposlenik kreirajZaposlenika() {
         Zaposlenik z = new Zaposlenik();
         z.setIme(faker.name().firstName());
+        z.setPrezime(faker.name().lastName());
         sess.persist(z);
         return z;
     }
