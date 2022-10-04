@@ -49,12 +49,17 @@ public class PocetniInsert {
     private void kreirajProizvode(int broj) {
         for (int i = 0; i < broj; i++) {
             proizvodi.add(kreirajProizvod());
+            
         }
     }
 
     private Proizvod kreirajProizvod() {
         Proizvod p = new Proizvod();
         p.setNaziv(faker.food().dish());
+        p.setVrsta(faker.beer().style());
+        p.setKolicina(Pomocno.randomKolicina(0, 1000));
+        p.setCijena(Pomocno.randomKolicina(0,11000));
+        
         sess.persist(p);
         return p;
     }
@@ -82,6 +87,9 @@ public class PocetniInsert {
         Zaposlenik z = new Zaposlenik();
         z.setIme(faker.name().firstName());
         z.setPrezime(faker.name().lastName());
+        z.setKontakt(faker.address().city());
+        z.setSmjena(faker.date().past(30, TimeUnit.DAYS));
+        z.setZnanje(faker.company().profession());
         sess.persist(z);
         return z;
     }

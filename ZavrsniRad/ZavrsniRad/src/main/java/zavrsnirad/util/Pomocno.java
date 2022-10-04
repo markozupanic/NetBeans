@@ -4,6 +4,7 @@
  */
 package zavrsnirad.util;
 
+import java.math.BigDecimal;
 import zavrsnirad.model.Operater;
 
 /**
@@ -14,4 +15,13 @@ public class Pomocno {
     
      public static final String NAZIV_APLIKACIJE = "ZAVRŠNI RAD";
     public static Operater operater;
+    
+    
+    
+    
+    public static Integer randomKolicina(int min,int max){
+          return min + (int)(Math.random() * ((max - min) + 1));
+    }
+    
+    
 }
