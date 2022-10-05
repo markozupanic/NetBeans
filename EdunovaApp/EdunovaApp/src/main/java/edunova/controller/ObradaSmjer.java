@@ -33,6 +33,12 @@ public class ObradaSmjer extends Obrada<Smjer>{
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
+        
+        if(entitet.getGrupe()!=null && 
+                !entitet.getGrupe().isEmpty()){
+            throw  new EdunovaException("Smjer ima grupe i ne može se "
+                    + "obrisati dok se ne obrišu grupe na ovom smjeru");
+        }
     }
 
     private void kontrolaNaziv() throws EdunovaException {

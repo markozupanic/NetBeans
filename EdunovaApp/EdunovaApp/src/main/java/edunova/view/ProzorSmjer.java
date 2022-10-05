@@ -59,6 +59,8 @@ public class ProzorSmjer extends javax.swing.JFrame {
         txtUpisnina = new javax.swing.JTextField();
         chbCertificiran = new javax.swing.JCheckBox();
         btnDodaj = new javax.swing.JButton();
+        btnPromjeni = new javax.swing.JButton();
+        btnObrisi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,6 +89,20 @@ public class ProzorSmjer extends javax.swing.JFrame {
             }
         });
 
+        btnPromjeni.setText("Promjeni");
+        btnPromjeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromjeniActionPerformed(evt);
+            }
+        });
+
+        btnObrisi.setText("Obriši");
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,7 +123,12 @@ public class ProzorSmjer extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(chbCertificiran)
-                            .addComponent(btnDodaj))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDodaj)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPromjeni)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnObrisi)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -136,7 +157,10 @@ public class ProzorSmjer extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(chbCertificiran)
                         .addGap(18, 18, 18)
-                        .addComponent(btnDodaj)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDodaj)
+                            .addComponent(btnPromjeni)
+                            .addComponent(btnObrisi))
                         .addGap(0, 58, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -170,10 +194,39 @@ public class ProzorSmjer extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnDodajActionPerformed
 
+    private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
+         if (obrada.getEntitet() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
+            return;
+        }
+
+        popuniModel();
+        try {
+            obrada.update();
+            ucitaj();
+        } catch (EdunovaException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getPoruka());
+    }//GEN-LAST:event_btnPromjeniActionPerformed
+    }
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+         if (obrada.getEntitet() == null) {
+            JOptionPane.showMessageDialog(rootPane, "Prvo odaberite stavku za promjenu");
+            return;
+        }
+        try {
+            obrada.delete();
+            ucitaj();
+        } catch (EdunovaException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getPoruka());
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnObrisi;
+    private javax.swing.JButton btnPromjeni;
     private javax.swing.JCheckBox chbCertificiran;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -189,6 +242,7 @@ public class ProzorSmjer extends javax.swing.JFrame {
 
     private void postavke() {
         setTitle(Pomocno.NAZIV_APLIKACIJE + " Smjerovi");
+        btnObrisi.setVisible(false);
     }
 
     private void ucitaj() {
@@ -204,7 +258,7 @@ public class ProzorSmjer extends javax.swing.JFrame {
         txtCijena.setText(s.getCijena().toString());
         txtUpisnina.setText(s.getUpisnina().toString());
         chbCertificiran.setSelected(s.isCertificiran());
-        
+        btnObrisi.setVisible(s.getGrupe()==null || s.getGrupe().isEmpty());
     }
 
     private void popuniModel() {

@@ -3,6 +3,7 @@ edunova\model\Entitet.class
 edunova\util\HibernateUtil.class
 edunova\model\Smjer.class
 edunova\Start.class
+edunova\view\ProzorPredavac$5.class
 edunova\model\Osoba.class
 edunova\model\Predavac.class
 edunova\model\Polaznik.class
