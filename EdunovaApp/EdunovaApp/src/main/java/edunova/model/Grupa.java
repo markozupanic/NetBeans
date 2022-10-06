@@ -68,6 +68,12 @@ public class Grupa extends Entitet{
 	public void setClanovi(List<Clan> clanovi) {
 		this.clanovi = clanovi;
 	}
+
+    @Override
+    public String toString() {
+        return naziv;
+                
+    }
 	
 	
 	

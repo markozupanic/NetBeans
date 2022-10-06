@@ -18,6 +18,7 @@ import us.codecraft.xsoup.Xsoup;
  */
 public class Pomocno {
     
+    public static final String FORMAT_DATUMA = "dd.MM.yyyy";
     public static final String NAZIV_APLIKACIJE="EDUNOVA APP";
     public static Operater operater;
 
