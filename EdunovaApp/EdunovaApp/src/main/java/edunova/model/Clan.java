@@ -51,6 +51,11 @@ public class Clan extends Entitet {
         this.napomena = napomena;
     }
 
+    @Override
+    public String toString() {
+        return polaznik.toString();
+    }
+
     
     
     

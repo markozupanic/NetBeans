@@ -6,17 +6,23 @@ package edunova.view;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import edunova.controller.ObradaGrupa;
+import edunova.controller.ObradaPolaznik;
 import edunova.controller.ObradaPredavac;
 import edunova.controller.ObradaSmjer;
+import edunova.model.Clan;
 import edunova.model.Grupa;
+import edunova.model.Polaznik;
 import edunova.model.Predavac;
 import edunova.model.Smjer;
+import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +31,7 @@ import javax.swing.DefaultComboBoxModel;
 public class ProzorGrupa extends javax.swing.JFrame {
 
     private ObradaGrupa obrada;
+    private ObradaPolaznik obradaPolaznik;
 
     /**
      * Creates new form ProzorGrupa
@@ -32,6 +39,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
     public ProzorGrupa() {
         initComponents();
         obrada = new ObradaGrupa();
+        obradaPolaznik=new ObradaPolaznik();
         postavke();
         ucitaj();
     }
@@ -55,6 +63,24 @@ public class ProzorGrupa extends javax.swing.JFrame {
         cmbPredavac = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         dpDatumPocetka = new com.github.lgooddatepicker.components.DatePicker();
+        jLabel5 = new javax.swing.JLabel();
+        txtMaksimalnoPolaznika = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lstClanoviGrupe = new javax.swing.JList<>();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        taNapomena = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        lstPolazniciUBazi = new javax.swing.JList<>();
+        txtUvjet = new javax.swing.JTextField();
+        btnTrazi = new javax.swing.JButton();
+        btnDodajPolaznike = new javax.swing.JButton();
+        btnObrišiPolaznike = new javax.swing.JButton();
+        btnPromjeni = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,6 +100,64 @@ public class ProzorGrupa extends javax.swing.JFrame {
 
         jLabel4.setText("Datum početka");
 
+        jLabel5.setText("Maskimalno polaznika");
+
+        lstClanoviGrupe.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstClanoviGrupeValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(lstClanoviGrupe);
+
+        jLabel6.setText("Polaznici na grupi");
+
+        taNapomena.setColumns(20);
+        taNapomena.setRows(5);
+        taNapomena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                taNapomenaKeyTyped(evt);
+            }
+        });
+        jScrollPane3.setViewportView(taNapomena);
+
+        jLabel7.setText("Napomena odabranog polaznika");
+
+        jLabel8.setText("Polaznici u školi");
+
+        jScrollPane4.setViewportView(lstPolazniciUBazi);
+
+        btnTrazi.setText("Traži");
+        btnTrazi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTraziActionPerformed(evt);
+            }
+        });
+
+        btnDodajPolaznike.setText("<");
+        btnDodajPolaznike.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajPolaznikeActionPerformed(evt);
+            }
+        });
+
+        btnObrišiPolaznike.setText(">");
+        btnObrišiPolaznike.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrišiPolaznikeActionPerformed(evt);
+            }
+        });
+
+        btnPromjeni.setText("Promjeni");
+        btnPromjeni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromjeniActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+
+        jButton3.setText("jButton3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,39 +165,106 @@ public class ProzorGrupa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1)
+                                .addComponent(txtNaziv)
+                                .addComponent(jLabel2)
+                                .addComponent(cmbSmjerovi, 0, 233, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addComponent(cmbPredavac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMaksimalnoPolaznika, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))))
+                        .addGap(65, 65, 65))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnPromjeni)
+                        .addGap(46, 46, 46)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(50, 50, 50)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1)
-                        .addComponent(txtNaziv)
-                        .addComponent(jLabel2)
-                        .addComponent(cmbSmjerovi, 0, 233, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addComponent(cmbPredavac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(0, 645, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnObrišiPolaznike, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                            .addComponent(btnDodajPolaznike, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel8)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtUvjet, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnTrazi))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(0, 36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbSmjerovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbPredavac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaksimalnoPolaznika, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUvjet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTrazi))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(btnDodajPolaznike)
+                                .addGap(37, 37, 37)
+                                .addComponent(btnObrišiPolaznike)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbSmjerovi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPredavac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dpDatumPocetka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPromjeni)
+                        .addComponent(jButton2)
+                        .addComponent(jButton3)))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
 
         pack();
@@ -128,18 +279,113 @@ public class ProzorGrupa extends javax.swing.JFrame {
         popuniView();
     }//GEN-LAST:event_lstEntitetiValueChanged
 
+    private void lstClanoviGrupeValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClanoviGrupeValueChanged
+        if(evt.getValueIsAdjusting() || lstClanoviGrupe.getSelectedValue()==null){
+            return;
+        }
+        
+        taNapomena.setText(lstClanoviGrupe.getSelectedValue().getNapomena());
+        
+    }//GEN-LAST:event_lstClanoviGrupeValueChanged
+
+    private void taNapomenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taNapomenaKeyTyped
+         if(lstClanoviGrupe.getSelectedValue()==null){
+            return;
+        }
+         var s =taNapomena.getText() + evt.getKeyChar();
+        // for(int i=0;i<s.length();i++){
+        //     System.out.println((int)s.charAt(i) +  ": " + s.charAt(i));
+        // }
+        
+        s=s.replace((char)22, (char)0);
+        
+        lstClanoviGrupe.getSelectedValue().setNapomena(s);
+        
+    }//GEN-LAST:event_taNapomenaKeyTyped
+
+    private void btnTraziActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraziActionPerformed
+        
+        lstPolazniciUBazi.setModel(new EdunovaListModel<>(obradaPolaznik.read(txtUvjet.getText().trim())));
+        
+        
+    }//GEN-LAST:event_btnTraziActionPerformed
+
+    private void btnDodajPolaznikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPolaznikeActionPerformed
+        
+        if(lstEntiteti.getSelectedValue()==null){
+            JOptionPane.showMessageDialog(rootPane, "Prvo odaberite grupu s ljeve strane");
+            return;
+        }
+        
+        DefaultListModel<Clan> m = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+        Clan c;
+        for(Polaznik p:lstPolazniciUBazi.getSelectedValuesList()){
+            c=new Clan();
+            c.setGrupa(obrada.getEntitet());
+            c.setPolaznik(p);
+            c.setNapomena("");
+            m.addElement(c);
+        }
+        
+        lstClanoviGrupe.repaint();
+        
+    }//GEN-LAST:event_btnDodajPolaznikeActionPerformed
+
+    private void btnObrišiPolaznikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrišiPolaznikeActionPerformed
+        DefaultListModel<Clan> m=(DefaultListModel<Clan>) lstClanoviGrupe.getModel();
+        for(Clan c:lstClanoviGrupe.getSelectedValuesList()){
+            m.removeElement(c);
+            lstClanoviGrupe.repaint();
+        }
+        
+        
+    }//GEN-LAST:event_btnObrišiPolaznikeActionPerformed
+
+    private void btnPromjeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromjeniActionPerformed
+        if(obrada.getEntitet()==null){
+            return;
+        }
+        popuniModel();
+        
+        try {
+            obrada.update();
+            ucitaj();
+        } catch (EdunovaException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getPoruka());
+        }
+        
+    }//GEN-LAST:event_btnPromjeniActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDodajPolaznike;
+    private javax.swing.JButton btnObrišiPolaznike;
+    private javax.swing.JButton btnPromjeni;
+    private javax.swing.JButton btnTrazi;
     private javax.swing.JComboBox<Predavac> cmbPredavac;
     private javax.swing.JComboBox<Smjer> cmbSmjerovi;
     private com.github.lgooddatepicker.components.DatePicker dpDatumPocetka;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JList<Clan> lstClanoviGrupe;
     private javax.swing.JList<Grupa> lstEntiteti;
+    private javax.swing.JList<Polaznik> lstPolazniciUBazi;
+    private javax.swing.JTextArea taNapomena;
+    private javax.swing.JTextField txtMaksimalnoPolaznika;
     private javax.swing.JTextField txtNaziv;
+    private javax.swing.JTextField txtUvjet;
     // End of variables declaration//GEN-END:variables
 
     private void postavke() {
@@ -183,8 +429,47 @@ public class ProzorGrupa extends javax.swing.JFrame {
         Date input=e.getDatumPocetka();
         LocalDate date=input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         dpDatumPocetka.setDate(date);
+        txtMaksimalnoPolaznika.setText(String.valueOf(e.getMaksimalnoPolaznika()));
+        lstClanoviGrupe.setModel(new EdunovaListModel<>(e.getClanovi()));
+        
+        
+        
     }
 
+    private void popuniModel(){
+        var e=obrada.getEntitet();
+        e.setNaziv(txtNaziv.getText());
+        e.setSmjer((Smjer) cmbSmjerovi.getSelectedItem());
+        e.setPredavac((Predavac) cmbPredavac.getSelectedItem());
+        e.setDatumPocetka(
+                Date.from(dpDatumPocetka.getDate()
+                        .atStartOfDay()
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant()
+                        )
+        );
+
+         try {
+            e.setMaksimalnoPolaznika(
+                    Integer.parseInt(
+                            txtMaksimalnoPolaznika.getText()
+                    ));
+        } catch (Exception ex) {
+            e.setMaksimalnoPolaznika(0);
+        }
+        DefaultListModel<Clan> m = 
+                (DefaultListModel<Clan>) 
+                lstClanoviGrupe.getModel();
+        
+         obrada.pocistiClanove();
+        for(int i=0;i<m.getSize();i++){
+            e.getClanovi().add(m.getElementAt(i));
+        }
+        
+        
+    }
+    
+    
     private void ucitajPredavace() {
         DefaultComboBoxModel<Predavac> p = new DefaultComboBoxModel<>();
         p.addAll(new ObradaPredavac().read());
