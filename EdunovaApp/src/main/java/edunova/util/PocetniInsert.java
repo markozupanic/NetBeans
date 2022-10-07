@@ -7,12 +7,15 @@ package edunova.util;
 import com.github.javafaker.Faker;
 import edunova.model.Clan;
 import edunova.model.Grupa;
+import edunova.model.Operater;
 import edunova.model.Polaznik;
 import edunova.model.Predavac;
 import edunova.model.Smjer;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 
@@ -43,6 +46,7 @@ public class PocetniInsert {
         kreirajPolaznike(1000);
         kreirajPredavace(20);
         kreirajGrupe(5);
+        kreirajOperatera();
         sess.getTransaction().commit();
                 
     }
@@ -58,6 +62,10 @@ public class PocetniInsert {
     private Smjer kreirajSmjer() {
         Smjer s=new Smjer();
         s.setNaziv(faker.book().title());
+        s.setCijena(new BigDecimal(1000));
+        s.setUpisnina(new BigDecimal(100));
+        s.setTrajanje(90);
+        s.setCertificiran(false);
         sess.persist(s);
         return s;
             
@@ -74,6 +82,7 @@ public class PocetniInsert {
         Polaznik p = new Polaznik();
         p.setIme(faker.address().firstName());
         p.setPrezime(faker.address().lastName());
+        p.setOib(Pomocno.dovuciOib());
         sess.persist(p);
         return p;
    
@@ -90,6 +99,7 @@ public class PocetniInsert {
         Predavac p = new Predavac();
         p.setIme(faker.address().firstName());
         p.setPrezime(faker.address().lastName());
+        p.setOib(Pomocno.dovuciOib());
         sess.persist(p);
         return p;
     }
@@ -125,6 +135,16 @@ public class PocetniInsert {
             g.getClanovi().add(c);
         }
         sess.persist(g);
+    }
+
+    private void kreirajOperatera() {
+        
+        Operater o=new Operater();
+        o.setIme("Marija");
+        o.setPrezime("Javić");
+        o.setEmail("mjavic@edunova.hr");
+        o.setLozinka(BCrypt.hashpw("m", BCrypt.gensalt()));
+        sess.persist(o);
     }
 
         

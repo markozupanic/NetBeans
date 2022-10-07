@@ -5,6 +5,7 @@
 package edunova.controller;
 
 import edunova.model.Predavac;
+import edunova.util.EdunovaException;
 import java.util.List;
 
 /**
@@ -23,5 +24,15 @@ public class ObradaPredavac extends ObradaOsoba<Predavac>{
         return "Predavac";
 
     }
+
+    @Override
+    protected void kontrolaDelete() throws EdunovaException {
+        super.kontrolaDelete(); 
+        if(entitet.getGrupe()!=null && !entitet.getGrupe().isEmpty()){
+            throw new EdunovaException("Predavac je postavljen na jednu ili više grupa");
+        }
+    }
+    
+    
     
 }

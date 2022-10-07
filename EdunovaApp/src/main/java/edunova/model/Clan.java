@@ -11,6 +11,21 @@ public class Clan extends Entitet {
     private Grupa grupa;
     @ManyToOne
     private Polaznik polaznik;
+    
+    private String napomena;
+
+    public Clan() {
+    }
+
+    public Clan(Grupa grupa, Polaznik polaznik, String napomena, Integer sifra) {
+        super(sifra);
+        this.grupa = grupa;
+        this.polaznik = polaznik;
+        this.napomena = napomena;
+    }
+    
+    
+    
 
     public Grupa getGrupa() {
         return grupa;
@@ -28,4 +43,15 @@ public class Clan extends Entitet {
         this.polaznik = polaznik;
     }
 
+    public String getNapomena() {
+        return napomena;
+    }
+
+    public void setNapomena(String napomena) {
+        this.napomena = napomena;
+    }
+
+    
+    
+    
 }
