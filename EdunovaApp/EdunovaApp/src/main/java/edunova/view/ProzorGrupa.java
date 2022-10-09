@@ -18,7 +18,9 @@ import edunova.util.EdunovaException;
 import edunova.util.Pomocno;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -79,7 +81,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
         btnDodajPolaznike = new javax.swing.JButton();
         btnObrišiPolaznike = new javax.swing.JButton();
         btnPromjeni = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDodaj = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -154,7 +156,12 @@ public class ProzorGrupa extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        btnDodaj.setText("Dodaj");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("jButton3");
 
@@ -187,7 +194,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnPromjeni)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton2)
+                        .addComponent(btnDodaj)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(50, 50, 50)))
@@ -261,7 +268,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnPromjeni)
-                        .addComponent(jButton2)
+                        .addComponent(btnDodaj)
                         .addComponent(jButton3)))
                 .addContainerGap(16, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
@@ -312,10 +319,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
 
     private void btnDodajPolaznikeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajPolaznikeActionPerformed
         
-        if(lstEntiteti.getSelectedValue()==null){
-            JOptionPane.showMessageDialog(rootPane, "Prvo odaberite grupu s ljeve strane");
-            return;
-        }
+        
         
         DefaultListModel<Clan> m = (DefaultListModel<Clan>) lstClanoviGrupe.getModel();
         Clan c;
@@ -356,8 +360,20 @@ public class ProzorGrupa extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnPromjeniActionPerformed
 
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        obrada.setEntitet(new Grupa());
+        popuniModel();
+        try {
+            obrada.create();
+            ucitaj();
+        } catch (EdunovaException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getPoruka());
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnDodajPolaznike;
     private javax.swing.JButton btnObrišiPolaznike;
     private javax.swing.JButton btnPromjeni;
@@ -365,7 +381,6 @@ public class ProzorGrupa extends javax.swing.JFrame {
     private javax.swing.JComboBox<Predavac> cmbPredavac;
     private javax.swing.JComboBox<Smjer> cmbSmjerovi;
     private com.github.lgooddatepicker.components.DatePicker dpDatumPocetka;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -394,6 +409,7 @@ public class ProzorGrupa extends javax.swing.JFrame {
         ucitajSmjerove();
         ucitajPredavace();
         prilagodiDatePicker();
+        lstClanoviGrupe.setModel(new DefaultListModel<>());
 
     }
     
@@ -441,12 +457,12 @@ public class ProzorGrupa extends javax.swing.JFrame {
         e.setNaziv(txtNaziv.getText());
         e.setSmjer((Smjer) cmbSmjerovi.getSelectedItem());
         e.setPredavac((Predavac) cmbPredavac.getSelectedItem());
-        e.setDatumPocetka(
+        e.setDatumPocetka(dpDatumPocetka.getDate()!=null ?
                 Date.from(dpDatumPocetka.getDate()
                         .atStartOfDay()
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
-                        )
+                        ):null
         );
 
          try {
@@ -461,11 +477,14 @@ public class ProzorGrupa extends javax.swing.JFrame {
                 (DefaultListModel<Clan>) 
                 lstClanoviGrupe.getModel();
         
-         obrada.pocistiClanove();
+         List<Clan> noviClanovi=new ArrayList<>();
+         
+         
+         
         for(int i=0;i<m.getSize();i++){
-            e.getClanovi().add(m.getElementAt(i));
+            noviClanovi.add(m.getElementAt(i));
         }
-        
+        obrada.setNoviClanovi(noviClanovi);
         
     }
     

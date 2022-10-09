@@ -16,13 +16,35 @@ import java.util.List;
  */
 public class ObradaGrupa extends Obrada<Grupa>{
 
+    
+    private List<Clan> noviClanovi;
+
+    @Override
+    public void create() throws EdunovaException {
+        kontrolaCreate();
+        session.beginTransaction();
+     
+        for(Clan c:noviClanovi){
+            session.persist(c);
+        }
+        entitet.setClanovi(noviClanovi);
+        session.persist(entitet);
+        session.getTransaction().commit();
+    }
+    
+    
+    
     @Override
     public void update() throws EdunovaException {
         kontrolaUpdate();
         session.beginTransaction();
         for(Clan c:entitet.getClanovi()){
+            session.remove(c);
+        }
+        for(Clan c:noviClanovi){
             session.persist(c);
         }
+        entitet.setClanovi(noviClanovi);
         session.persist(entitet);
         session.getTransaction().commit();
         
@@ -54,16 +76,21 @@ public class ObradaGrupa extends Obrada<Grupa>{
         return "Grupa";
     }
 
-    public void pocistiClanove() {
-        session.beginTransaction();
-        for(Clan c:entitet.getClanovi()){
-            session.remove(c);
-        }
+    
         
-        session.getTransaction().commit();
-        entitet.setClanovi(new ArrayList<>());
+        
 
 
+    
+
+    public List<Clan> getNoviClanovi() {
+        return noviClanovi;
     }
+
+    public void setNoviClanovi(List<Clan> noviClanovi) {
+        this.noviClanovi = noviClanovi;
+    }
+    
+    
     
 }
