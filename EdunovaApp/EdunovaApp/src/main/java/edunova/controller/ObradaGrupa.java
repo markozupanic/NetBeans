@@ -76,12 +76,14 @@ public class ObradaGrupa extends Obrada<Grupa>{
     @Override
     protected void kontrolaCreate() throws EdunovaException {
         kotrolaNaziv();
+        kontrolaSmjer();
         kontrolaBrojPolaznika();
         
     }
 
     @Override
     protected void kontrolaUpdate() throws EdunovaException {
+        kontrolaCreate();
     }
 
     @Override
@@ -125,6 +127,12 @@ public class ObradaGrupa extends Obrada<Grupa>{
             
         }
         
+    }
+
+    private void kontrolaSmjer() throws EdunovaException {
+        if(entitet.getSmjer()==null){
+            throw new EdunovaException("Smjer obavezno");
+        }
     }
     
     
