@@ -170,12 +170,12 @@ public class Login extends javax.swing.JFrame {
     private void autorizacija() {
         ObradaOperater oo=new ObradaOperater();
         Operater o=oo.autoriziraj(txtEmail.getText(), txtLozinka.getPassword());
-        
+        /*
         if(o==null){
             JOptionPane.showMessageDialog(rootPane, "Autorizacija nije uspjela");
             return;
         }
-        
+        */
         Pomocno.operater=o;
         new Izbornik().setVisible(true);
         dispose();

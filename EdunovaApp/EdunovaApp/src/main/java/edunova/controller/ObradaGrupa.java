@@ -23,8 +23,10 @@ public class ObradaGrupa extends Obrada<Grupa>{
     public void create() throws EdunovaException {
         kontrolaCreate();
         session.beginTransaction();
+        session.persist(entitet);
      
         for(Clan c:noviClanovi){
+            c.setGrupa(entitet);
             session.persist(c);
         }
         entitet.setClanovi(noviClanovi);
@@ -50,6 +52,18 @@ public class ObradaGrupa extends Obrada<Grupa>{
         
     }
 
+    @Override
+    public void delete() throws EdunovaException {
+        kontrolaDelete();
+         session.beginTransaction();
+        for(Clan c:entitet.getClanovi()){
+            session.remove(c);
+        }
+       
+        session.remove(entitet);
+        session.getTransaction().commit();
+    }
+
     
     
     
@@ -61,6 +75,9 @@ public class ObradaGrupa extends Obrada<Grupa>{
 
     @Override
     protected void kontrolaCreate() throws EdunovaException {
+        kotrolaNaziv();
+        kontrolaBrojPolaznika();
+        
     }
 
     @Override
@@ -69,6 +86,9 @@ public class ObradaGrupa extends Obrada<Grupa>{
 
     @Override
     protected void kontrolaDelete() throws EdunovaException {
+        if(!noviClanovi.isEmpty()){
+            throw new EdunovaException("Ne možese obrisati grupa koja ima članove");
+        }
     }
 
     @Override
@@ -89,6 +109,22 @@ public class ObradaGrupa extends Obrada<Grupa>{
 
     public void setNoviClanovi(List<Clan> noviClanovi) {
         this.noviClanovi = noviClanovi;
+    }
+
+    private void kotrolaNaziv() throws EdunovaException {
+        if(entitet.getNaziv()==null || entitet.getNaziv().isEmpty()){
+            throw new EdunovaException("Naziv obavezno");
+        }
+    }
+
+    private void kontrolaBrojPolaznika() throws EdunovaException{
+        if(entitet.getMaksimalnoPolaznika()!=null && entitet.getMaksimalnoPolaznika()>0){
+            if(entitet.getMaksimalnoPolaznika() < noviClanovi.size()){
+                throw new EdunovaException("Grupa ima više članova od maksimalnog broja članova");
+            }
+            
+        }
+        
     }
     
     

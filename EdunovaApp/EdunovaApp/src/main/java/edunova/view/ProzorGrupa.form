@@ -56,7 +56,7 @@
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="btnDodaj" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnObrisi" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -75,7 +75,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="txtUvjet" pref="123" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnTrazi" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnTraziPolaznika" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" alignment="1" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -123,7 +123,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtUvjet" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnTrazi" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnTraziPolaznika" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -148,7 +148,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnPromjeni" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnDodaj" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnObrisi" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="16" max="32767" attributes="0"/>
@@ -246,6 +246,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lstClanoviGrupeKeyPressed"/>
             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="lstClanoviGrupeValueChanged"/>
           </Events>
           <AuxValues>
@@ -300,6 +301,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lstPolazniciUBaziMouseClicked"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Polaznik&gt;"/>
           </AuxValues>
@@ -307,13 +311,17 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="txtUvjet">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUvjetKeyPressed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnTrazi">
+    <Component class="javax.swing.JButton" name="btnTraziPolaznika">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tra&#x17e;i"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTraziActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTraziPolaznikaActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnTraziPolaznikaKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDodajPolaznike">
@@ -348,10 +356,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDodajActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnObrisi">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton3"/>
+        <Property name="text" type="java.lang.String" value="Obri&#x161;i"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnObrisiActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
